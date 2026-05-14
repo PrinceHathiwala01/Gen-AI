@@ -17,10 +17,10 @@ authRouter.post("/register", registerController.registerUserController);
 authRouter.post("/login", registerController.loginUserController);
 
 /**
- * @route POST /api/auth/logout
+ * @route GET /api/auth/logout
  * @desc Logout a user
  * @access Public
  */
-authRouter.post("/logout", registerController.logoutUserController);
+authRouter.get("/logout", registerController.logoutUserController);
 
 module.exports = authRouter;

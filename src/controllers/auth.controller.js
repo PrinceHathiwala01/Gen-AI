@@ -1,4 +1,5 @@
 const userModel = require("../model/user.model");
+const tokenBlacklistModel = require("../model/blacklist.model");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -106,6 +107,13 @@ async function loginUserController(req, res) {
 
 //This controller is used to logout the user by clearing the token from the cookie.
 async function logoutUserController(req, res) {
+    const token = req.cookies.Token;
+
+    if (token) {
+        await tokenBlacklistModel.create({
+            token
+        })
+    }
     res.clearCookie("Token");
     res.status(200).json({
         message: "User logged out successfully"
