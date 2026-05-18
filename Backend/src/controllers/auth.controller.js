@@ -63,15 +63,10 @@ async function registerUserController(req, res) {
 
 //This controller is used to login the user and provide them with a token for authentication.
 async function loginUserController(req, res) {
-    const { username, email, password } = req.body;
+    const { email, password } = req.body;
     
     //This is to check whether user exists or not
-    const user = await userModel.findOne({
-        $or: [
-            { username },
-            { email }
-        ]
-    });
+    const user = await userModel.findOne({ email });
 
     if (!user) {
         return res.status(400).json({
